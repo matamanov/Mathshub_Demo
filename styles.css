@@ -10,13 +10,17 @@
 header{
     background-color: lightgray;
     height: 50px;
+    width: 100%;
+    position: fixed;
+    top: 0;
 }
 nav{
     /* border: 1px dotted black; */
     /* width: max-content; */
     height: inherit;
+    width: inherit;
     display: flex;
-    /* justify-content: start; */
+    justify-content: start;
     align-items: center;
 }
 nav > a {
@@ -25,6 +29,13 @@ nav > a {
     padding: 0 30px;
     font-size: 20px;
 }
+nav > a:hover{
+    color: lightcoral;
+}
+
+main {
+    margin-top: 50px;
+}
 .about_us{  
     display: flex;
     /* flex-direction: row-reverse; */
@@ -32,8 +43,8 @@ nav > a {
     
 }
 .about_us img{  
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     object-fit: cover;
     object-position: top;
 }
@@ -74,6 +85,7 @@ nav > a {
     outline: none;
 }
 
+
 .chosen_block {
     display: flex;
     flex-direction: column;
@@ -86,13 +98,29 @@ nav > a {
     flex-wrap: wrap;
     max-width: 650px;
 }
-.chosen_block-container > div{
-    display: flex;
-    justify-content: center;
+.chosen_block-container > div {
     width: 150px;
     height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: lightgoldenrodyellow;
 }
 .chosen_element {
     border: 3px solid black;
+}
+
+
+.posts_block {
+    max-width: 600px;
+    margin: 20px auto;
+}
+.posts_block h2 {
+    text-align: center;
+}
+.posts_block-container > * {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: lightgrey;
 }

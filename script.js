@@ -6,7 +6,7 @@
 
 // console.log(skill.innerText)
 
-// const skillText   = prompt('Какой язык вы учите?','Пока не в курсе')
+//  const skillText   = prompt('Какой язык вы учите?','Пока не в курсе')
 // const isLoveValue = confirm('Вы любите изучаемый язык?') 
 
 // console.log(isLoveValue)
@@ -210,10 +210,10 @@
 // const isPlus       = Math.random() > 0.5
 
 const gameElements = document.getElementById("my_game").children
-const title      = gameElements[0]
-const userTask   = gameElements[1]
+const title = gameElements[0]
+const userTask = gameElements[1]
 const userAnswer = gameElements[2]
-const btnGame    = gameElements[3]
+const btnGame = gameElements[3]
 
 const gameState = {
     taskInProcess: false,
@@ -225,14 +225,14 @@ const toggleGameState = () => {
 }
 
 const getRandomNumInRange = (min, max) => {
-    const randomNum = ( Math.random() * (max - min) + min ).toFixed(0)
+    const randomNum = (Math.random() * (max - min) + min).toFixed(0)
     return randomNum
 }
 
 const getTask = () => {
     // const randomValue1 = getRandomNumInRange(0,100)
     // const randomValue2 = getRandomNumInRange(0,100)
-    
+
     // let symbol 
     // if (Math.random() > 0.5)  {
     //     symbol = "+"
@@ -241,34 +241,34 @@ const getTask = () => {
     // }
     const symbol = (Math.random() > 0.5) ? "+" : "-"
 
-    const task = `${getRandomNumInRange(0,100)} ${symbol} ${getRandomNumInRange(0,100)}`
+    const task = `${getRandomNumInRange(0, 100)} ${symbol} ${getRandomNumInRange(0, 100)}`
     gameState.rightAnswer = eval(task)
     return task
 }
 
 // btnGame.onclick = () => {
 const startGameFunc = () => {
-    if(!gameState.taskInProcess) {
+    if (!gameState.taskInProcess) {
         title.innerText = "Игра началась:"
         userAnswer.value = null
         // генерируем задачу и ответ
         // const task = getTask()
         // показываем задачу пользователю, даём поле ввода ответа
         userTask.innerText = getTask()
-        userAnswer.hidden  = false
+        userAnswer.hidden = false
         // меняем кнопку и меняем состояние
-        btnGame.innerText  = "Проверить!"
+        btnGame.innerText = "Проверить!"
         // gameState.taskInProcess = true
         toggleGameState()
     } else {
         // ставнить ответ пользователя с правильным
         const isRight = gameState.rightAnswer == userAnswer.value
         // вывести результат
-        userTask.innerText = userTask.innerText + ' = ' + gameState.rightAnswer 
+        userTask.innerText = userTask.innerText + ' = ' + gameState.rightAnswer
         // вывести поздравления
         title.innerText = (isRight) ? "Верно!!!" : "Ошибочный ответ!"
         // поменять кнопку и состояние 
-        btnGame.innerText  = "Начать заново!"
+        btnGame.innerText = "Начать заново!"
         // gameState.taskInProcess = false
         toggleGameState()
     }
@@ -278,7 +278,7 @@ userAnswer.addEventListener("keydown", (e) => {
     // console.log(e)
     if (e.key === "Enter") {
         startGameFunc()
-    } 
+    }
     else if (e.key === "Escape") {
         userAnswer.blur()
     }
@@ -293,7 +293,7 @@ userAnswer.addEventListener("keydown", (e) => {
 // const chosenElems = document.querySelectorAll("#my_game p") // поиск элемента p под элементом по ID = my_game
 
 
-const chosenElems = document.querySelectorAll(".chosen_block-container > div") 
+const chosenElems = document.querySelectorAll(".chosen_block-container > div")
 const counterElem = document.querySelector(".chosen_block span")
 
 // const chosenState = {
@@ -305,7 +305,7 @@ const counterElem = document.querySelector(".chosen_block span")
 // }
 const chosenState = {
     countElements: 0,
-    selCountValue (value) {
+    selCountValue(value) {
         this.countElements += value
         counterElem.innerText = this.countElements
     }
@@ -330,7 +330,80 @@ const eventFunc = (e) => {
     }
 }
 
-for(let i = 0; i < chosenElems.length; i++ ) {
+for (let i = 0; i < chosenElems.length; i++) {
     chosenElems[i].addEventListener("click", eventFunc)
 }
 // chosenElems[2].removeEventListener("click", eventFunc)
+
+
+// Day 6
+
+// const timeIsOver = () => {
+//     alert("Время вышло!")
+// }
+// setTimeout(timeIsOver, 2000)
+
+// const alarm = setInterval(timeIsOver, 3000)
+// clearInterval(alarm)
+
+// const alarm = setInterval(() => {
+//     let wantToSleep = confirm("Хотите спать?")    
+//     if (wantToSleep) {
+//         console.log("tik")   
+//     } else {
+//         clearInterval(alarm)        
+//     }
+// }, 3000)
+
+const postsBlock = document.querySelector(".posts_block-container")
+const showPostsBTN = document.querySelector(".posts_block button")
+
+// showPostsBTN.onclick = getPosts
+
+function addPost(title, body) {
+    const postsTitle = document.createElement("h3")
+    const postsBody = document.createElement("span")
+    const postsItem = document.createElement("p")
+
+    postsTitle.innerText = title
+    postsBody.innerText = body
+
+    postsItem.append(postsTitle, postsBody)
+    postsBlock.append(postsItem)
+}
+getPosts()
+
+function getPosts() {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+        .then(res => res.json())
+        .then(data => {
+            for (el of data) {
+                addPost(el.title, el.body)
+            }
+            // addPost(data[7].title, data[7].body)
+        })
+        .catch(err => console.log(err.message))
+}
+
+// function createPost(title, body, userId) {
+//     fetch("https://jsonplaceholder.typicode.com/posts", {
+//         method: "POST",
+//         body: JSON.stringify({
+//             // title:  title,
+//             // body:   body,
+//             // userId: userId,
+//             title,
+//             body,
+//             userId,
+//         }),
+//         headers: {
+//             'content-type': 'application/json; charset=UTF-8'
+//         },
+//     })
+//         .then(res => {
+//             console.log(res)
+//             return res.json()
+//         })
+//         .catch(err => console.log(err.message))
+// }
+// createPost("title", "body", 15)
